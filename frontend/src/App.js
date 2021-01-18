@@ -8,6 +8,10 @@ import Register from './components/Common/Register'
 import Navbar from './components/templates/Navbar'
 import Profile from './components/Users/Profile'
 import Login from './components/Common/Login'
+import Dashboardr from './components/Users/dashboard-r'
+import Dashboardrjobform from './components/Users/create-job'
+import Dashboarda from './components/Users/dashboard-a'
+
 function App() {
   return (
     <Router>
@@ -19,6 +23,9 @@ function App() {
         <Route path="/register" component={Register}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/login" component = {Login}/>
+        <Route path ="/dashboard-r" component = {Dashboardr}/>
+        <Route path = "/dashboard-r/create-job" component = {Dashboardrjobform}/>
+        <Route path = "/dashboard-a"component = {Dashboarda}/>
       </div>
     </Router>
   );

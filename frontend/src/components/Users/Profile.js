@@ -1,93 +1,92 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-
-
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-
+import './Profile.css'
 class Profile extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {users: [],sortName:true};
-        this.sortClicked = this.sortClicked.bind(this);
-        this.renderIcon = this.renderIcon.bind(this);
-        this.sortChange = this.sortChange.bind(this);
+        this.state = {details: []};
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/user')
+        axios.get('http://localhost:4000/user/profile') // unimplemented
              .then(response => {
-                 this.setState({users: response.data});
+                 this.setState({details: response.data});
              })
              .catch(function(error) {
                  console.log(error);
              })
+        
     }
-
-    componentDidUpdate() {
-        axios.get('http://localhost:4000/user')
-             .then(response => {
-                 this.setState({users: response.data});
-             })
-             .catch(function(error) {
-                 console.log(error);
-             })        
-    }
-
-    sortClicked(){
-        console.log(this.state);
-    }
-
-    sortChange(){
-        var array = this.state.users;
-        var flag = this.state.sortName;
-        array.sort(function(a, b) {
-            if(a.date != undefined && b.date != undefined){
-                return (1 - flag*2) * (new Date(a.date) - new Date(b.date));
-            }
-            else{
-                return 1;
-            }
-          }); // Sort youngest first
-        this.setState({
-            users:array,
-            sortName:!this.state.sortName,
-        })
-    }
-
-    renderIcon(){
-        if(this.state.sortName){
-            return(
-                <ArrowDownwardIcon/>
-            )
+    componentWillMount() {
+        console.log(this.state.details.type)
+        if(this.state.details.type === "applicant")
+        {
+            var x =  document.getElementsByClassName("applicant");
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "block";
+              }
         }
-        else{
-            return(
-                <ArrowUpwardIcon/>
-            )            
+        else
+        {
+            var x =  document.getElementsByClassName("recuiter");
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "block";
+              }
         }
     }
 
     render() {
         return (
             <div>
-                <Grid item xs={12} md={12} lg={12}>
-                    <Paper>
+                { 
+                    this.state.details.map((user, i) => {
+                        if(user.type === "applicant"){
+                           // console.log("applicant")
+                        return (
+                            <div key={user.name}>
+                            <h1>Name :{user.name}</h1>   <br></br> 
+                             <h1> Email : {user.email}</h1> <br></br>
+                             <h1>Type : {user.type}</h1><br></br>
+                             <h1>Skils :</h1> <ul> {
+                                 user.skills.map((val,i) => {
+                                     return (
+                                             <li key={val}>{val}</li>
+                                     )
+                                 })
+                            }
+                            </ul>
+                            <h1>Education :</h1> <ul> {
+                                 user.education.map((val,i) => {
+                                     return (
+                                             <li key={val.c00}>{val.c00}</li>
+                                     )
+                                 })
+                            }
+                            </ul>
                             
-                    </Paper>               
-                </Grid>                
-            </div>
+                               <h1> Rating :{user.rating}</h1> <br></br>
+                               <h1>Password :{user.password}</h1> <br></br>
+                            </div>
+                        )
+                            }
+                        else
+                        {
+                            return (
+                                <div>
+                                <h1>Name :{user.name}</h1>   <br></br> 
+                                 <h1> Email : {user.email}</h1> <br></br>
+                                 <h1>Type : {user.type}</h1><br></br>
+                                   <h1>Contat No :{user.contactno}</h1> <br></br>
+                                   <h1>Bio :{user.bio}</h1> <br></br>
+                                </div>
+                            )
+                        }
+                    })
+                }
+        </div>
         )
     }
 }

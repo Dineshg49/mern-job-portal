@@ -2,56 +2,52 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
-const JobSchema = new Schema({
+const UserSchema = new Schema({
 	title : {
 		type : String ,
-		required : true
 	},
-	name_of_recruiter : {
+	name_of_recuiter : {
 		type : String ,
-		required : true
 	},
-	email_of_recruiter : {
-		type : String ,
-		required : true
+	email_of_recuiter : {
+		type : String , 
     },
     max_applications : {
-        type : Number,
-        required : true
+        type : String 
     },
     max_positions : {
-        type : Number,
-        required : true
+        type : String
     },
-    date_of_posting :{
-        type : Date ,
-        required : true
+    date_of_posting : {
+        type : Date
     },
-    deadline_for_application : {
-        type : Date ,
-        required : true
+    deadline : {
+        type : String
     },
-    required_skill_sets :{
-        type : [String] ,
-        required : true
+    skills : {
+		type : String
     },
-    type_of_job : {
-        type : String ,
-        required : true
+	type : {
+		type : String ,
+	},
+	duration : {
+		type : Number
     },
-    duration : {
-        type : Number ,
-        required : true
-    },
-    salary : {
-        type : Number ,
-        required : true
-    },
-    rating : {
-        type : Number ,
-        required : true
-    }
+	salary : {
+		type : Number ,
+	},
+	rating: {
+		type : Number,
+	},
+	status : {
+		type : String,
+	},
+	curr_applicants : [{
+		type :String
+	}],
+	curr_selected :[{
+		type : String
+	}]
 });
 
-
-module.exports = User = mongoose.model("Users", JobSchema);
+module.exports = User = mongoose.model("Jobs", UserSchema);

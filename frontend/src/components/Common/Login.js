@@ -8,36 +8,51 @@ export default class Login extends Component {
 
         this.state = {
             email: '',
-            password : ''
+            password: '',
+         //   date:null
         }
 
-        this.onChangeEmail = this.onChangeEmail.bind(this);
-        this.onChangepass = this.onChangepass.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
-    onChangeEmail(event) {
-        this.setState({ email: event.target.value });
+    onChange = e => {
+        var nam = e.target.name;
+        var val = e.target.value;
+        this.setState({ [nam] : val });
     }
-
-    onChangepass(event) {
-        this.setState({ password: event.target.value });
-    }
-
 
     onSubmit(e) {
         e.preventDefault();
 
         const newUser = {
+          //  name: this.state.name,
             email: this.state.email,
             password : this.state.password
+         //   date: Date.now()
         }
         axios.post('http://localhost:4000/user/login', newUser)
-             .then(res => {alert("Created\t" + res.data.email);console.log(res.data)})
-             ;
+             .then(function(res){
+                 console.log("final")
+             if(res.data===1 || res.data===2)
+             {
+                //  console.log("inin")
+                 window.location = "/login"
+                 alert("Wrong Username or Password")
+             }
+             else if(res.data===4)
+             {
+                // console.log("ninin")
+                 window.location = "/dashboard-r" 
+             }
+             else
+             {
+                 window.location = "/dashboard-a"
+             }
+            });
 
         this.setState({
             email: '',
-            password : ''
+            password: '',
+        //    date:null
         });
     }
 
@@ -45,28 +60,24 @@ export default class Login extends Component {
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
-
                     <div className="form-group">
                         <label>Email: </label>
                         <input type="text" 
+                                name = "email"
                                className="form-control" 
                                value={this.state.email}
-                               onChange={this.onChangeEmail}
-                               />  
+                               onChange={this.onChange}
+                               />
                     </div>
                     <div className="form-group">
-                        <label>Password:</label>
-                        <input type = "text" className ="form-control" value = {this.state.password}
-                        onChange = {this.onChangepass}
-                        />
+                        <label>Password: </label>
+                        <input type="text" 
+                                name = "password"
+                               className="form-control" 
+                               value={this.state.password}
+                               onChange={this.onChange}
+                               />  
                     </div>
-                    {/* <div className = "form-group">
-                    <label for="Job-Type">Job-Type:</label>
-                        <select id="Job-Type">
-                        <option value="Job-Applicant">Job Applicant</option>
-                        <option value="Recruiter">Recruiter</option>
-                        </select>
-                    </div> */}
                     <div className="form-group">
                         <input type="submit" value="Login" className="btn btn-primary"/>
                     </div>
