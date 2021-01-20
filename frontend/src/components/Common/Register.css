@@ -15,3 +15,7 @@
 #ed-3 {
     display: none;
 }
+
+.back :hover {
+    color: black;
+}

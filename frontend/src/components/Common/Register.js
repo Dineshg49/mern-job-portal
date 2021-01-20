@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import './Register.css'
 import { Button } from '@material-ui/core';
-
+import {Form} from 'react-bootstrap'
+import {Row , Col} from 'react-bootstrap'
+import { Multiselect } from 'multiselect-react-dropdown';
+import SelectInput from '@material-ui/core/Select/SelectInput';
 export default class Register extends Component {
     
     constructor(props) {
@@ -14,7 +17,11 @@ export default class Register extends Component {
             password : '',
             type: '',
             edcn : 1 ,
-            education :[],
+            education :[{
+                inst : '',
+                joind : 2019,
+                endd : 2020
+            }],
             ed00 : '',ed01 : '' , ed02 : '' ,
             ed10 : '',ed11 : '' , ed12 : '' ,
             ed20 : '',ed21 : '' , ed22 : '' ,
@@ -24,15 +31,20 @@ export default class Register extends Component {
             skilla2 : '',
             skilla3 : '',
             bio : '',
-            contactno : ''
+            contactno : '',
+            options: ['C','C++'],
+            more: ''
+            
         }
-
+        this.multiselectRef = React.createRef();
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeType = this.onChangeType.bind(this);
         this.fun= this.fun.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onSelect = this.onSelect.bind(this);
+        this.ekaur = this.ekaur.bind(this);
     }
     fun() {
         this.state.edcn = this.state.edcn +1;
@@ -53,6 +65,13 @@ export default class Register extends Component {
     onChangeEmail(event) {
         this.setState({ email: event.target.value });
     }
+    handleChange = (e) => {
+        console.log("called")
+        let value = Array.from(e.target.selectedOptions, option => option.value);
+        console.log(this.state.value[0])
+        this.setState({skills: value});
+        
+      }
 
     onChangeType(event) {
         this.setState({ type: event.target.value });
@@ -110,8 +129,21 @@ export default class Register extends Component {
         onChange = e => {
             var nam = e.target.name;
             var val = e.target.value;
+          //  console.log(nam)
+          //  console.log(val)
             this.setState({ [nam] : val });
         }
+        onSelect(selectedList, selectedItem) {
+            var newArr = selectedList;
+            this.setState({skills : newArr})
+        }
+        ekaur(e) {
+            var newArr = this.state.options;
+            newArr.push(this.state.more)
+            this.setState({options : newArr , more : ''})
+
+        }
+        
     
     onSubmit(e) {
         e.preventDefault();
@@ -124,22 +156,23 @@ export default class Register extends Component {
         var c20 = this.state.ed20;
         var c21 = this.state.ed21;
         var c22 = this.state.ed22;
-        if(this.state.skilla1 !== '')
-            this.state.skills.concat(this.state.skilla1)
-        if(this.state.skilla2 !== '')
-            this.state.axiosskills.concat(this.state.skilla2)
-        if(this.state.skilla3 !== '')
-            this.state.skills.concat(this.state.skilla3)
-        if(this.state.edcn === 1)
-            this.state.education = [ [c00] ,[c01] ,[c02] ];
-        else if(this.state.edcn === 2)
-        {
-            this.state.education =  [ { c00 ,c01 ,c02} , {c10 ,c11 ,c12} ]
+
+        const ed1 = {
+            inst : c00,
+            joind : c01,
+            endd : c02
         }
-        else
-        {
-            this.state.edcucation  = [ { c00 ,c01 ,c02} , {c10 ,c11 ,c12} , {c20 ,c21 ,c22}  ]
+        const ed2 = {
+            inst : c10,
+            joind : c11,
+            endd : c12
         }
+        const ed3 = {
+            inst : c20,
+            joind : c21,
+            endd : c22
+        }
+        this.state.education = [ed1,ed2,ed3];
         const newUser = {
             name: this.state.name,
             email: this.state.email,
@@ -147,7 +180,8 @@ export default class Register extends Component {
             password : this.state.password ,
             education : this.state.education,
             rating : this.state.rating,
-            skills : this.state.skills
+            skills : this.state.skills,
+            job_selected : ''
             //date: Date.now()
         }
         const newUser2 = {
@@ -175,7 +209,9 @@ export default class Register extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.onSubmit}>
+               
+                <Button variant="contained" color="primary" href="/" class="back">Back</Button>
+                <Form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>User Type: </label>
                         <select id="opt" 
@@ -199,7 +235,7 @@ export default class Register extends Component {
                     </div>
                     <div className="form-group common">
                         <label>Email: </label>
-                        <input type="text" 
+                        <input type="email" 
                                className="form-control" 
                                value={this.state.email}
                                onChange={this.onChangeEmail}
@@ -207,7 +243,7 @@ export default class Register extends Component {
                     </div>
                     <div className="form-group common">
                         <label>Password: </label>
-                        <input type="text" 
+                        <input type="password" 
                                className="form-control" 
                                name = "password"
                                value={this.state.password}
@@ -216,8 +252,10 @@ export default class Register extends Component {
                     </div>
                     <div className="form-group applicant">
                         <label>Education: </label>
-                        <Button id = "addmore" onClick = {this.fun}>Add More</Button>
+                        <Button color="secondary" id = "addmore" onClick = {this.fun}>Add More</Button>
                         <div id = "ed-1">
+                            <Row>
+                                <Col>
                         <label>Institution Name</label>
                         <input type="text" 
                                className="form-control" 
@@ -225,22 +263,34 @@ export default class Register extends Component {
                                value={this.state.ed00}
                                onChange={this.onChange}
                                />
+                               </Col>
+                               <Col>
                         <label>Start Year</label>
                         <input type ="number"
+                                min="1950"
+                                max="2021"
                                 className="form-control"
                                 name = "ed01"
                                 value = {this.state.ed01}
                                 onChange = {this.onChange}
                         />
+                        </Col>
+                        <Col>
                         <label>End Year</label>
                         <input type ="number"
                                 name = "ed02"
+                                min="1950"
+                                max="2021"
                                 className="form-control"
                                 value = {this.state.ed02}
                                 onChange = {this.onChange}
                         />
+                        </Col>
+                        </Row>
                         </div>
-                        <div id = "ed-2">
+                        <div id = "ed-2" >
+                            <Row>
+                                <Col>
                         <label>Institution Name</label>
                         <input type="text" 
                                 name = "ed10"
@@ -248,72 +298,89 @@ export default class Register extends Component {
                                value={this.state.ed10}
                                onChange={this.onChange}
                                />
+                               </Col>
+                               <Col>
                         <label>Start Year</label>
                         <input type ="number"
                                  name = "ed11"
+                                 min="1950"
+                                max="2021"
                                 className="form-control"
                                 value = {this.state.ed11}
                                 onChange = {this.onChange}
                         />
+                        </Col>
+                        <Col>
                         <label>End Year</label>
                         <input type ="number"
                                 name = "ed12"
+                                min="1950"
+                                max="2021"
                                 className="form-control"
                                 value = {this.state.ed12}
                                 onChange = {this.onChange}
                         />
+                        </Col>
+                        </Row>
                         </div>
-                        <div id = "ed-3">
+                        <div id = "ed-3" >
+                            <Row>
+                                <Col>
+                                <label>Institution Name</label>
                         <input type="text" 
                                 name = "ed20"
                                className="form-control" 
                                value={this.state.ed20}
                                onChange={this.onChange}
                                />
+                               </Col>
+                               <Col>
                         <label>Start Year</label>
                         <input type ="number"
                                 name = "ed21"
+                                min="1950"
+                                max="2021"
                                 className="form-control"
                                 value = {this.state.ed21}
                                 onChange = {this.onChange}
                         />
+                        </Col>
+                        <Col>
                         <label>End Year</label>
                         <input type ="number"
                                 name = "ed22"
+                                min="1950"
+                                max="2021"
                                 className="form-control"
                                 value = {this.state.ed22}
                                 onChange = {this.onChange}
                         />
+                        </Col>
+                        </Row>
                         </div>
                     </div>
                     
                     <div className="form-group applicant" >
 
                     <label>Skills:</label>
-
-                        <select name="skills" 
-                        onChange={this.onChange} value={this.state.skills} multiple={true}>
-                        <option value="C">C</option>
-                        <option value="c++">C++</option>
-                        <option value="python">Python</option>
-                        <option value="java">Java</option>
-                        </select>
-                        <label>Add More :</label>
-                        <input type="text" name = "skilla1" onChange = {this.onChange} value = {this.state.skilla1}/>
-                        <input type ="text" name = "skilla2"onChange = {this.onChange} value = {this.state.skilla2}/>
-                        <input type ="text" name = "skilla3"onChange = {this.onChange} value = {this.state.skilla3}/>
+                    <Multiselect onSelect={this.onSelect} onRemove={this.onRemove} options={this.state.options} isObject={false} onChange = {this.handleChange}/>
+                    </div>
+                    <div className = "form-group applicant">
+                        <label>Skills not in the List</label>
+                        <input type="text"className = "form-control" name="more" value={this.state.more} onChange={this.onChange}/>
+                        <Button color="secondary"onClick={this.ekaur}>Add Skill</Button>
                     </div>
                     <div className="form-group applicant">
                         <label>Rating</label>
-                        <input type="range" min="0" max="5" name = "rating" onChange = {this.onChange} value ={this.state.rating}></input>
+                        <input  className = "form-control" type="range" min="0" max="5" name = "rating" onChange = {this.onChange} value ={this.state.rating}></input>
                     </div>
                     <div className="form-group applicant">
                         <label>CV/Resume PDF</label>
-                        <input type="file" name="upload" accept="application/pdf"/>
+                        <input className = "form-control" type="file" name="upload" accept="application/pdf"/>
                     </div>
                     <div className="form-group applicant">
                         <label>Profile Image in JPG format</label>
-                        <input type="file" name="upload" accept="application/jpg"/>
+                        <input className = "form-control"  type="file" name="upload" accept="application/jpg"/>
                     </div>
 
                     <div className="form-group recuiter">
@@ -334,9 +401,9 @@ export default class Register extends Component {
                         </textarea> 
                     </div>
                     <div className="form-group common">
-                        <input type="submit" value="Register" className="btn btn-primary"/>
+                        <input type="submit" value="Register" className="btn btn-primary common"/>
                     </div>
-                </form>
+                </Form>
             </div>
         )
     }

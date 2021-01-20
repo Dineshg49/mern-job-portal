@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Navbarr from '../templates/Navbar-r'
+import { Button } from '@material-ui/core';
 
 class Dashboardrjobform extends Component {
     
@@ -20,7 +21,7 @@ class Dashboardrjobform extends Component {
             rating : 0,
             name_of_recuiter : '',
             email_of_recuiter : '',
-            year : 2020,
+            year : 2021,
             month : 1,
             day : 24,
             hour : 23,
@@ -86,18 +87,15 @@ class Dashboardrjobform extends Component {
             status : 'active',
             curr_applicants : [],
             curr_selected : [],
+            _id_of_recuiter : this.state.details[0]._id
             //date: Date.now()
         }
 
-        axios.post('http://localhost:4000/jobs/create', newJob)
+        axios.post('http://localhost:4000/user/create', newJob)
              .then(function(res){
            //     window.location = "/login_page"
             });
-        axios.get('http://localhost:4000/users/job-created', {
-            params : {
-                title : this.state.title
-            }
-        })
+        axios.get('http://localhost:4000/user/job-created')
             .then(function(res){
           //     window.location = "/login_page"
            });
@@ -106,6 +104,7 @@ class Dashboardrjobform extends Component {
     render() {
         return (
         <div>
+                <Button variant="contained" color="primary" href="/dashboard-r" class="back">Back</Button>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Title: </label>

@@ -11,7 +11,10 @@ const UserSchema = new Schema({
 	},
 	email_of_recuiter : {
 		type : String , 
-    },
+	},
+	_id_of_recuiter : {
+		type : String
+	},
     max_applications : {
         type : String 
     },
@@ -45,7 +48,13 @@ const UserSchema = new Schema({
 	curr_applicants : [{
 		type :String
 	}],
+	curr_shortlisted : [{
+		type :String
+	}],
 	curr_selected :[{
+		type : String
+	}],
+	curr_rejected :[{
 		type : String
 	}]
 });

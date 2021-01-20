@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Button } from '@material-ui/core';
 
 export default class Login extends Component {
     
@@ -59,10 +60,11 @@ export default class Login extends Component {
     render() {
         return (
             <div>
+                <Button variant="contained" color="primary" href="/" class="back">Back</Button>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email: </label>
-                        <input type="text" 
+                        <input type="email" 
                                 name = "email"
                                className="form-control" 
                                value={this.state.email}
@@ -71,7 +73,7 @@ export default class Login extends Component {
                     </div>
                     <div className="form-group">
                         <label>Password: </label>
-                        <input type="text" 
+                        <input type="password" 
                                 name = "password"
                                className="form-control" 
                                value={this.state.password}

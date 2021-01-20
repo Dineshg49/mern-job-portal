@@ -14,8 +14,8 @@ const UserSchema = new Schema({
 	},
 	education : [{
 		inst : String ,
-		join : String ,
-		end : String
+		joind : String ,
+		endd : String
 	}],
 	skills : [
 		{type : String}
@@ -45,14 +45,24 @@ const UserSchema = new Schema({
 	{
 		type : String
 	},
+	jobs_sop : [{
+		title : String,
+		SOP : String,
+	}],
 	jobs_applied : [{
 		type : String
 	}],
 	jobs_rejected : [{
 		type : String
 	}],
+	jobs_shortlisted :[{
+		type : String
+	}],
 	job_selected :{
 		type : String
+	},
+	recuiter_selected :{
+		type :String
 	}
 });
 

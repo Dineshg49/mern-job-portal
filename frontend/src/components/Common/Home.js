@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-
+import Button from '@material-ui/core/Button';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css" 
+import './Home.css'
 var string = "MyString"
+
 
 export default class Home extends Component {
     
@@ -31,7 +35,16 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                Happy Coding {this.state.name}!
+                <ul className="navbar-nav mr-auto">
+                            <li className="navbar-item">
+                                <Button variant="contained" color="primary" href="/register">Register</Button>
+                            </li>
+                            <br></br>
+                            <li className="navbar-item">
+                                <Button variant="contained" color="secondary" href="/login">Login</Button>
+                            </li>                      
+                </ul>
+                
            </div>
         )
     }

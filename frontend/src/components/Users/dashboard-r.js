@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Navbarr from '../templates/Navbar-r'
+import Button from '@material-ui/core/Button';
+import { Nav } from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css" 
 
 class Dashboardr extends Component {
     
@@ -23,7 +27,13 @@ class Dashboardr extends Component {
     render() {
         return (
             <div>
-                <Navbarr></Navbarr> <br></br>  
+                <Nav variant="pills" className="flex-column">
+                <Nav.Link href="/create-job">Create Job</Nav.Link>
+                <Nav.Link href="/profile">My Profile</Nav.Link>
+                <Nav.Link href="/created-jobs">Job Listings</Nav.Link>
+                <Nav.Link href = "/myemployees">My Employees</Nav.Link>
+                <Nav.Link href="/">Logout</Nav.Link>
+                </Nav>
              </div>
         )
     }
