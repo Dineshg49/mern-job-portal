@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Navbarr from '../templates/Navbar-r'
 import { Button } from '@material-ui/core';
+import { Icon } from 'semantic-ui-react';
 
 class myapplications extends Component {
     
     constructor(props) {
         super(props);
-        this.state = { details : [] ,jobs : [] ,stat : ''}
+        this.state = { details : [] ,jobs : [] ,stat : '',rating : ''}
         this.checstatus = this.checstatus.bind(this);
     }
 
@@ -42,7 +43,13 @@ class myapplications extends Component {
         }
         return f;
     }
-
+    onChange = e => {
+        var nam = e.target.name;
+        var val = e.target.value;
+       // console.log(e.target.value)
+       // console.log(this.state.title)
+        this.setState({ [nam] : val });
+    }
     render() {
         return (
             <div>
@@ -53,6 +60,7 @@ class myapplications extends Component {
                             <th>Job-Title</th>
                             <th>Recuiter Name</th>
                             <th>Salary</th>
+                            <th>Date of Joining</th>
                             <th>Status of Application</th>
                             <th>Rate the Recuiter</th>
 
@@ -63,12 +71,18 @@ class myapplications extends Component {
                     { 
                         this.state.jobs.map((job, i) => {
                             var status;
-                            console.log("noob")
-                            console.log(this.state.details[0].job_selected)
-                            console.log(job._id)
+                            var join_date = "NA";
+                            var yes = true
+
+                            
+                          //  console.log("noob")
+                           // console.log(this.state.details[0].job_selected)
+                           // console.log(job._id)
                             if(this.state.details[0].job_selected === job._id)
                             {
                                 status = "Accepted"
+                                join_date = this.state.details[0].date_of_joining;
+                                yes = false;
                             }
                             else 
                             {
@@ -85,14 +99,14 @@ class myapplications extends Component {
                                 }
                                 if(f==0)
                                 {
-                                    console.log("hurray")
-                                    console.log(x)
-                                    console.log(job.curr_shortlisted[0])
-                                    console.log("hurray")
+                                    // console.log("hurray")
+                                    // console.log(x)
+                                    // console.log(job.curr_shortlisted[0])
+                                    // console.log("hurray")
                                     for(var i = 0; job.curr_shortlisted.length ;i++)
                                     {
-                                        console.log(x)
-                                        console.log(job.curr_shortlisted[i])
+                                        // console.log(x)
+                                        // console.log(job.curr_shortlisted[i])
                                         if(x===job.curr_shortlisted[i])
                                         {
                                             f=1;
@@ -106,13 +120,35 @@ class myapplications extends Component {
                                     status = "Applied"
                                 }
                             }
+                            for(var i = 0;i<job.rated_by.length;i++)
+                            {
+                                if(job.rated_by[i]==this.state.details[0]._id)
+                                {
+                                    yes = true;
+                                }
+                            }
+
                             return (
                                 <tr>
                                     <td>{job.title}</td>
                                     <td>{job.name_of_recuiter}</td>
                                     <td>{job.salary}</td>
+                                    <td>{join_date}</td>
                                     <td>{status}</td>
-                                    <td>Rating Slider</td>
+                                    <td><input type = "range"
+                                        value={this.state.rating}
+                                        name = "rating"
+                                        onChange={this.onChange}
+                                        max = "5" disabled={yes}/> <button type = "submit"disabled={yes} onSubmit={() => {
+                                            axios.get('http://localhost:4000/user/rate-job',{
+                                                params : {
+                                                    jobid : job._id , 
+                                                    userid : this.state.details[0]._id,
+                                                    rating : this.state.rating
+                                                }
+                                            }) // unimplemented
+                                            
+                                        }}>Done</button></td>
                                     {/* <td><input type="button" value="Dispatch" className="btn btn-primary"/></td> */}
                                 </tr>
                             )

@@ -52,16 +52,16 @@ export default class Editprofilea extends Component {
     fun() {
         this.state.edcn = this.state.edcn +1;
         var n  = this.state.edcn;
-        console.log(n);
+     //   console.log(n);
         var st = 'ed-' + n.toString();
-        console.log(st);
+     //   console.log(st);
         document.getElementById(st).style.display = "block";
         if(n === 3)
             document.getElementById("addmore").style.display = "none";
     }
     onChangeUsername(event) {
-        console.log(event.target.name)
-        console.log(event.target.value)
+    //    console.log(event.target.name)
+      //  console.log(event.target.value)
         this.setState({ name: event.target.value });
     }
 
@@ -69,9 +69,9 @@ export default class Editprofilea extends Component {
         this.setState({ email: event.target.value });
     }
     handleChange = (e) => {
-        console.log("called")
+      //  console.log("called")
         let value = Array.from(e.target.selectedOptions, option => option.value);
-        console.log(this.state.value[0])
+      //  console.log(this.state.value[0])
         this.setState({skills: value});
         
       }
@@ -129,7 +129,7 @@ export default class Editprofilea extends Component {
             ed1 : ed1,
             ed2 :   ed2,
             ed3 : ed3,
-            rating : this.state.rating,
+          //  rating : this.state.rating,
             skills : this.state.skills
             //date: Date.now()
         }
@@ -141,7 +141,7 @@ export default class Editprofilea extends Component {
                 email: this.state.email,
                 password : this.state.password ,
                 education : this.state.education,
-                rating : this.state.rating,
+          //      rating : this.state.rating,
                 skills : this.state.skills
             }
         })
@@ -299,10 +299,6 @@ export default class Editprofilea extends Component {
                         <label>Skills not in the List</label>
                         <input type="text"className = "form-control" name="more" value={this.state.more} onChange={this.onChange}/>
                         <Button color="secondary"onClick={this.ekaur}>Add Skill</Button>
-                    </div>
-                    <div className="form-group">
-                        <label>Rating</label>
-                        <input  className = "form-control" type="range" min="0" max="5" name = "rating" onChange = {this.onChange} value ={this.state.rating}></input>
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Done" className="btn btn-primary common"/>

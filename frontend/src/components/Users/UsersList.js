@@ -75,7 +75,7 @@ class UsersList extends Component {
     }
 
     customFunction(e){
-        console.log(e.target.value);
+       // console.log(e.target.value);
         this.setState({
             searchText:e.target.value
         })

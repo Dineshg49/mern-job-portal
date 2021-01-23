@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
+import 'bootstrap/dist/css/bootstrap.css'
+import 'semantic-ui-css/semantic.min.css'
 
 import UsersList from './components/Users/UsersList'
 import Home from './components/Common/Home'
@@ -18,6 +20,7 @@ import Editprofilea from './components/Users/edit-profile-a'
 import editprofiler from './components/Users/edit-profile-r'
 import myapplications from './components/Users/my-applications'
 import myemployees from './components/Users/my-employees'
+import editjob from './components/Users/edit-job'
 
 function App() {
   return (
@@ -39,6 +42,7 @@ function App() {
         <Route path ="/edit-profile-r" component={editprofiler}/>
         <Route path = "/my-applications" component ={myapplications}/>
         <Route path = "/myemployees" component = {myemployees}/>
+        <Route path = "/edit-job" component = {editjob}/>
       </div>
     </Router>
   );

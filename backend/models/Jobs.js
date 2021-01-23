@@ -56,6 +56,12 @@ const UserSchema = new Schema({
 	}],
 	curr_rejected :[{
 		type : String
+	}],
+	rating_cn : {
+		type : Number,
+	},
+	rated_by : [{
+		type : String
 	}]
 });
 

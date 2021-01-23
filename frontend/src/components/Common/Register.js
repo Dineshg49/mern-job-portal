@@ -49,16 +49,16 @@ export default class Register extends Component {
     fun() {
         this.state.edcn = this.state.edcn +1;
         var n  = this.state.edcn;
-        console.log(n);
+       // console.log(n);
         var st = 'ed-' + n.toString();
-        console.log(st);
+      //  console.log(st);
         document.getElementById(st).style.display = "block";
         if(n === 3)
             document.getElementById("addmore").style.display = "none";
     }
     onChangeUsername(event) {
-        console.log(event.target.name)
-        console.log(event.target.value)
+      //  console.log(event.target.name)
+      //  console.log(event.target.value)
         this.setState({ name: event.target.value });
     }
 
@@ -66,9 +66,9 @@ export default class Register extends Component {
         this.setState({ email: event.target.value });
     }
     handleChange = (e) => {
-        console.log("called")
+      //  console.log("called")
         let value = Array.from(e.target.selectedOptions, option => option.value);
-        console.log(this.state.value[0])
+       // console.log(this.state.value[0])
         this.setState({skills: value});
         
       }
@@ -369,10 +369,6 @@ export default class Register extends Component {
                         <label>Skills not in the List</label>
                         <input type="text"className = "form-control" name="more" value={this.state.more} onChange={this.onChange}/>
                         <Button color="secondary"onClick={this.ekaur}>Add Skill</Button>
-                    </div>
-                    <div className="form-group applicant">
-                        <label>Rating</label>
-                        <input  className = "form-control" type="range" min="0" max="5" name = "rating" onChange = {this.onChange} value ={this.state.rating}></input>
                     </div>
                     <div className="form-group applicant">
                         <label>CV/Resume PDF</label>

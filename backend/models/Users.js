@@ -61,9 +61,26 @@ const UserSchema = new Schema({
 	job_selected :{
 		type : String
 	},
+	type_of_job_selected : {
+		type : String
+	},
+	date_of_joining : {
+		type : String
+	},
 	recuiter_selected :{
 		type :String
-	}
+	},
+	application : [{
+		id_of_job : String ,
+		sop : String ,
+		date_of_application : String
+	}],
+	rating_cn : {
+		type : Number
+	},
+	rated_by : [{
+		type : String
+	}]
 });
 
 module.exports = User = mongoose.model("Users", UserSchema);

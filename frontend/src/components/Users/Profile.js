@@ -21,7 +21,7 @@ class Profile extends Component {
         
     }
     componentWillMount() {
-        console.log(this.state.details.type)
+       // console.log(this.state.details.type)
         if(this.state.details.type === "applicant")
         {
             var x =  document.getElementsByClassName("applicant");
@@ -47,6 +47,13 @@ class Profile extends Component {
                 { 
                     this.state.details.map((user, i) => {
                         if(user.type === "applicant"){
+                            var rat;
+                            if(user.rating_cn ==0)
+                             rat = "Not Rated Yet";
+                             else
+                             {
+                                 rat = user.rating/user.rating_cn;
+                             }
                            // console.log("applicant")
                         return (
                             
@@ -79,7 +86,7 @@ class Profile extends Component {
                                 }
                             })
                         }      </ListGroup.Item>
-                                <ListGroup.Item variant="warning">Rating : {user.rating}</ListGroup.Item>
+                                <ListGroup.Item variant="warning">Rating : {rat}</ListGroup.Item>
                             </ListGroup>
                             <Button text-align="right" variant="contained" color="primary" href="/edit-profile-a" class="back">Edit-Profile</Button>
                             </div>

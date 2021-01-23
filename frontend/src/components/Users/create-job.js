@@ -15,7 +15,7 @@ class Dashboardrjobform extends Component {
             date : null ,
             deadline : '',
             skills : '' ,
-            type : 'full-time',
+            type : 'Full-time',
             duration : 0,
             salary : 0 ,
             rating : 0,
@@ -45,15 +45,15 @@ class Dashboardrjobform extends Component {
     onChange = e => {
         var nam = e.target.name;
         var val = e.target.value;
-        console.log(e.target.value)
-        console.log(this.state.title)
+       // console.log(e.target.value)
+       // console.log(this.state.title)
         this.setState({ [nam] : val });
     }
     onSubmit(e) {
         e.preventDefault();
-        console.log(this.state.title)
-        console.log("bich wala")
-        console.log(this.state.details[0].name)
+      //  console.log(this.state.title)
+      //  console.log("bich wala")
+      //  console.log(this.state.details[0].name)
         var smonth = this.state.month.toString();
         if(this.state.month < 10)
             smonth = '0' + smonth;
@@ -189,9 +189,9 @@ class Dashboardrjobform extends Component {
                                name = "type"
                                onChange={this.onChange}
                                >
-                                       <option value="full-time">Full-Time</option>
-                                       <option value="applicant">Part-Time</option>
-                                       <option value="recuiter">Work From Home</option>
+                                       <option value="Full-time">Full-Time</option>
+                                       <option value="Part-Time">Part-Time</option>
+                                       <option value="Work From Home">Work From Home</option>
 
                         </select>
                     </div>
@@ -212,10 +212,6 @@ class Dashboardrjobform extends Component {
                                value={this.state.salary}
                                onChange={this.onChange}
                                />  
-                    </div>
-                    <div className="form-group applicant">
-                        <label>Rating</label>
-                        <input type="range" min="0" max="5" name = "rating" onChange = {this.onChange} value ={this.state.rating}></input>
                     </div>
                     
                     <div className="form-group">

@@ -25,8 +25,8 @@ export default class editprofiler extends Component {
     }
 
     onChangeUsername(event) {
-        console.log(event.target.name)
-        console.log(event.target.value)
+  //      console.log(event.target.name)
+   //     console.log(event.target.value)
         this.setState({ name: event.target.value });
     }
 
@@ -34,9 +34,9 @@ export default class editprofiler extends Component {
         this.setState({ email: event.target.value });
     }
     handleChange = (e) => {
-        console.log("called")
+     //   console.log("called")
         let value = Array.from(e.target.selectedOptions, option => option.value);
-        console.log(this.state.value[0])
+     //   console.log(this.state.value[0])
         this.setState({skills: value});
         
       }

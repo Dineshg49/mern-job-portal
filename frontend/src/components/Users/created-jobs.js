@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Navbarr from '../templates/Navbar-r'
 import { Button } from '@material-ui/core';
+import { Icon } from 'semantic-ui-react'
 
 class CreatedJobs extends Component {
     
@@ -62,7 +63,13 @@ class CreatedJobs extends Component {
                             <th>Salary</th>
                             <th>Duration</th>
                             <th>Deadline</th>
+                            <th>Max No. Of Applicants</th>
+                            <th>Max No. of Positions</th>
+                            <th>Current no. of Applicants</th>
+                            <th>Current number of accepted</th>
                             <th>View</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
 
                             {/* <th>Dispatch</th> */}
                         </tr>
@@ -79,6 +86,10 @@ class CreatedJobs extends Component {
                                     <td>{job.salary}</td>
                                     <td>{job.duration}</td>
                                     <td>{job.deadline}</td>
+                                    <td>{job.max_applications}</td>
+                                    <td>{job.max_positions}</td>
+                                    <td>{job.curr_applicants.length}</td>
+                                    <td>{job.curr_selected.length}</td>
                                     <td><button onClick = {() => {
                                         axios.get('http://localhost:4000/user/job-login' , {
                                             params : {
@@ -93,6 +104,47 @@ class CreatedJobs extends Component {
                                         });
 
                                     }}>View</button></td>
+                                    <td><button><Icon name='edit' size='large' onClick = {() => {
+                                        axios.get('http://localhost:4000/user/job-login' , {
+                                            params : {
+                                                _id : job._id,
+                                                title : job.title
+                                            }
+                                        }
+                                        )
+                                        .then(window.location = "/edit-job")
+                                        .catch(function(err) {
+                                            console.log(err);
+                                        });
+
+                                    }}/></button></td>
+                                    <td><button><Icon name='delete' size='large' onClick = {() => {
+                                        axios.get('http://localhost:4000/user/delete-job' , {
+                                            params : {
+                                                _id : job._id,
+                                              //  title : job.title
+                                            }
+                                        });
+                                        axios.get('http://localhost:4000/user/delete-job2' , {
+                                            params : {
+                                                _id : job._id,
+                                              //  title : job.title
+                                            }
+                                        });
+                                        axios.get('http://localhost:4000/user/delete-job3' , {
+                                            params : {
+                                                _id : job._id,
+                                              //  title : job.title
+                                            }
+                                        });
+                                        axios.get('http://localhost:4000/user/delete-job4' , {
+                                            params : {
+                                                _id : job._id,
+                                              //  title : job.title
+                                            }
+                                        });
+
+                                    }}/></button></td>
 
                                     {/* <td><input type="button" value="Dispatch" className="btn btn-primary"/></td> */}
                                 </tr>
