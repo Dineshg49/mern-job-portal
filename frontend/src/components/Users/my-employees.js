@@ -8,7 +8,7 @@ class myemployees extends Component {
     
     constructor(props) {
         super(props);
-        this.state = {details: [] , curr_job : [] ,stat : '', rating : ''}
+        this.state = {details: [] , curr_job : [] ,stat : '', rating : 0}
         this.checstatus = this.checstatus.bind(this);
         this.onSort = this.onSort.bind(this);
     }
@@ -136,15 +136,16 @@ class myemployees extends Component {
                                         value={this.state.rating}
                                         name = "rating"
                                         onChange={this.onChange}
-                                        max = "5" disabled={yes}/> <button type = "submit"disabled={yes} onSubmit={() => {
+                                        max = "5" disabled={yes}/> <button  disabled={yes} onClick={() => {
                                             axios.get('http://localhost:4000/user/rate-applicant',{
                                                 params : {
                                                     jobid : user.job_selected , 
-                                                    userid : user.recuiter_selected,
+                                                    userid : user._id,
+                                                    recid : user.recuiter_selected,
                                                     rating : this.state.rating
                                                 }
                                             }) // unimplemented
-                                            
+                                            window.location.reload(false);
                                         }}>Done</button></td>
                         
 {/*                     

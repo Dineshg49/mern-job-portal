@@ -74,11 +74,7 @@ class myapplications extends Component {
                             var join_date = "NA";
                             var yes = true
 
-                            
-                          //  console.log("noob")
-                           // console.log(this.state.details[0].job_selected)
-                           // console.log(job._id)
-                            if(this.state.details[0].job_selected === job._id)
+                            if(this.state.details[0].job_selected == job._id)
                             {
                                 status = "Accepted"
                                 join_date = this.state.details[0].date_of_joining;
@@ -88,9 +84,9 @@ class myapplications extends Component {
                             {
                                 var f=0;
                                 var x = this.state.details[0]._id;
-                                for(var i = 0; this.state.jobs[0].curr_rejected.length ;i++)
+                                for(var i = 0; job.curr_rejected.length ;i++)
                                 {
-                                    if(x===this.state.jobs[0].curr_rejected[i])
+                                    if(x==job.curr_rejected[i])
                                     {
                                         f=1;
                                         status = "Rejected"
@@ -107,7 +103,7 @@ class myapplications extends Component {
                                     {
                                         // console.log(x)
                                         // console.log(job.curr_shortlisted[i])
-                                        if(x===job.curr_shortlisted[i])
+                                        if(x==job.curr_shortlisted[i])
                                         {
                                             f=1;
                                             status = "ShortListed"
@@ -139,7 +135,7 @@ class myapplications extends Component {
                                         value={this.state.rating}
                                         name = "rating"
                                         onChange={this.onChange}
-                                        max = "5" disabled={yes}/> <button type = "submit"disabled={yes} onSubmit={() => {
+                                        max = "5" disabled={yes}/> <button disabled={yes} onClick={() => {
                                             axios.get('http://localhost:4000/user/rate-job',{
                                                 params : {
                                                     jobid : job._id , 
@@ -147,7 +143,7 @@ class myapplications extends Component {
                                                     rating : this.state.rating
                                                 }
                                             }) // unimplemented
-                                            
+                                            window.location.reload(false);
                                         }}>Done</button></td>
                                     {/* <td><input type="button" value="Dispatch" className="btn btn-primary"/></td> */}
                                 </tr>

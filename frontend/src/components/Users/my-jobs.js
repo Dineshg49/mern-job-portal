@@ -135,6 +135,9 @@ class Myjobs extends Component {
             if(x[i]==_id)
                 f=1;
         }
+        x = this.state.details[0].job_selected;
+        if(x!='')
+            f=2;
         return f;
     }
     onChange = e => {
@@ -245,11 +248,16 @@ class Myjobs extends Component {
                            // var stat
                             if(f==1)
                                 val = "Applied"
+                            else if(f==2)
+                                val = "Already Accepted in Some Job";
                             else
                             {
-                                if(job.max_applications == job.curr_applicants.length){
+                                if(job.max_applications == (job.curr_applicants.length + job.curr_rejected.length) ){
                                     val = "Full"
                                  
+                                }
+                                else if(job.max_positions == job.curr_selected.length){
+                                    val = "Full"
                                 }
                                 else{
                                     val = "Apply"
@@ -275,6 +283,7 @@ class Myjobs extends Component {
                                         {
                                             this.fun(job);
                                         }
+                                        window.location.reload(false);
                                     }}>{val}</button></td>
 
                                     {/* <td><input type="button" value="Dispatch" className="btn btn-primary"/></td> */}

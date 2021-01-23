@@ -83,7 +83,7 @@ export default class editprofiler extends Component {
         return (
             <div>
                
-                <Button variant="contained" color="primary" href="/" class="back">Back</Button>
+                <Button variant="contained" color="primary" href="/profile" class="back">Back</Button>
                 <Form onSubmit={this.onSubmit}>
                     <div className="form-group common">
                         <label>Name: </label>
@@ -91,7 +91,7 @@ export default class editprofiler extends Component {
                                className="form-control" 
                                value={this.state.name}
                                onChange={this.onChangeUsername}
-                               />
+                               required/>
                     </div>
                     <div className="form-group common">
                         <label>Email: </label>
@@ -99,7 +99,7 @@ export default class editprofiler extends Component {
                                className="form-control" 
                                value={this.state.email}
                                onChange={this.onChangeEmail}
-                               />  
+                               required/>  
                     </div>
                     <div className="form-group common">
                         <label>Password: </label>
@@ -108,7 +108,7 @@ export default class editprofiler extends Component {
                                name = "password"
                                value={this.state.password}
                                onChange={this.onChange}
-                               />  
+                               required/>  
                     </div>
                     <div className="form-group ">
                         <label>Contact No: </label>

@@ -220,6 +220,7 @@ class jobdetails extends Component {
                                         .catch(function(err) {
                                             console.log(err);
                                         });
+                                        window.location.reload(false);
 
                                         // console.log(id)
                                     }}>{buttonval}</button></td>
@@ -244,6 +245,7 @@ class jobdetails extends Component {
                                         .catch(function(err) {
                                             console.log(err);
                                         });
+                                        window.location.reload(false);
 
                                         // console.log(id)
                                     }}>Reject</button></td>
@@ -262,6 +264,12 @@ class jobdetails extends Component {
                                     <div>
                                     <td>{val}</td>
                                     <td><button onClick = {() =>{
+                                        var status = "active";
+                                        if(job.max_positions == (job.curr_selected +1))
+                                        {
+                                            status = "inactive";
+                                        }
+                                        else
                                         var today = new Date(),
                                         date =  today.getFullYear()   + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
@@ -281,6 +289,7 @@ class jobdetails extends Component {
                                         axios.get('http://localhost:4000/user/add-to-accepted' , {
                                             params : {
                                                 _id : user._id,
+                                                status : status
                                             }
                                         }
                                         )
@@ -289,9 +298,54 @@ class jobdetails extends Component {
                                             console.log(err);
                                         });
 
+                                        axios.get('http://localhost:4000/user/reject-others' , {
+                                            params : {
+                                                _id : user._id,
+                                            }
+                                        }
+                                        )
+                                        .then(response => console.log(response))
+                                        .catch(function(err) {
+                                            console.log(err);
+                                        });
+                                        axios.get('http://localhost:4000/user/reject-all' , {
+                                            params : {
+                                                _id : user._id,
+                                                jobs : user.jobs_applied
+                                            }
+                                        }
+                                        )
+                                        .then(response => console.log(response))
+                                        .catch(function(err) {
+                                            console.log(err);
+                                        });
+                                        window.location.reload(false);
                                         // console.log(id)
                                     }}>{buttonval}</button></td>
-                                    <td><button>Reject</button></td>
+                                    <td><button onClick = {() =>{
+                                        axios.get('http://localhost:4000/user/reject-job' , {
+                                            params : {
+                                                _id : user._id
+                                            }
+                                        }
+                                        )
+                                        .then(response => console.log(response))
+                                        .catch(function(err) {
+                                            console.log(err);
+                                        });
+                                        axios.get('http://localhost:4000/user/add-to-rejected' , {
+                                            params : {
+                                                _id : user._id,
+                                            }
+                                        }
+                                        )
+                                        .then(response => console.log(response))
+                                        .catch(function(err) {
+                                            console.log(err);
+                                        });
+                                        window.location.reload(false);
+                                        // console.log(id)
+                                    }}>Reject</button></td>
                                     </div>
                                    )
                                }

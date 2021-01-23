@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Form} from 'react-bootstrap';
+import {Row , Col} from 'react-bootstrap'
 import Button from '@material-ui/core/Button';
 //import './Profile.css'
 import { ListGroup } from 'react-bootstrap';
+import { useRadioGroup } from '@material-ui/core';
 class editjob extends Component {
     
     constructor(props) {
@@ -89,62 +91,89 @@ class editjob extends Component {
                                 <ListGroup.Item variant="success">Deadline :{job.deadline}</ListGroup.Item>
                             </ListGroup>
                             <Form onSubmit={this.onSubmit}>
-                                <div className="form-group">
-                                    <label>Max-No-of-Applicants: </label>
-                                    <input type="number" 
-                                        className="form-control" 
-                                        name= "max_applications"
-                                        value={this.state.max_applications}
-                                        onChange={this.onChange}
-                                        />
-                                </div>
-                                <div className="form-group ">
-                                    <label>Max-No-of-Positions :</label>
-                                    <input type="number" 
-                                        className="form-control" 
-                                        name = "max_positions"
-                                        value={this.state.max_positions}
-                                        onChange={this.onChange}
-                                        />  
-                                </div>
-                                    <div className="form-group">
-                                    <label>Deadline : (YYYY/MM/DD/hh/mm)</label>
-                                    <label>Year :</label>
-                                    <input type="number" 
-                                        name = "year"
-                                        className="form-control" 
-                                        value={this.state.year}
-                                        onChange={this.onChange}
-                                        />
-                                    <label>Month :</label>
-                                    <input type="number" 
-                                        name = "month"
-                                        className="form-control" 
-                                        value={this.state.month}
-                                        onChange={this.onChange}
-                                        />
-                                    <label>Day :</label>
-                                    <input type="number" 
-                                        name = "day"
-                                        className="form-control" 
-                                        value={this.state.day}
-                                        onChange={this.onChange}
-                                        />
-                                    <label>Hour :</label>
-                                    <input type="number" 
-                                        name = "hour"
-                                        className="form-control" 
-                                        value={this.state.hour}
-                                        onChange={this.onChange}
-                                        />
-                                    <label>Minute :</label>
-                                    <input type="number" 
-                                        name = "minute"
-                                        className="form-control" 
-                                        value={this.state.minute}
-                                        onChange={this.onChange}
-                                        />
-                                </div>
+                            <Row>
+                        <Col>
+                    <div className="form-group">
+                        <label>Max Number of Applicants: </label>
+                        <input type="number" 
+                             name = "max_applications"
+                             min = {job.current_applicants.length}
+                               className="form-control" 
+                               value={this.state.max_applications}
+                               onChange={this.onChange}
+                               required/>  
+                    </div>
+                    </Col>
+                    <Col>
+                    <div className="form-group">
+                        <label>Max Number of Positions: </label>
+                        <input type="number" 
+                             min = {job.current_accepted.length}
+                             name = "max_positions"
+                               className="form-control" 
+                               value={this.state.max_positions}
+                               onChange={this.onChange}
+                               required/>  
+                    </div>
+                    </Col>
+                    </Row>
+                    <div className="form-group">
+                        <label>Deadline :</label>
+                        <br></br>
+                        <Row>
+                            <Col>
+                        <label>Year :</label>
+                        <input type="number" 
+                             name = "year"
+                             min="2021"
+                             max ="2100"
+                               className="form-control" 
+                               value={this.state.year}
+                               onChange={this.onChange}
+                               required/>
+                              </Col> <Col>
+                        <label>Month :</label>
+                        <input type="number" 
+                             name = "month"
+                             min="1"
+                             max="12"
+                               className="form-control" 
+                               value={this.state.month}
+                               onChange={this.onChange}
+                               required/>
+                               </Col><Col>
+                        <label>Day :</label>
+                        <input type="number" 
+                             name = "day"
+                             min="1"
+                             max="31"
+                               className="form-control" 
+                               value={this.state.day}
+                               onChange={this.onChange}
+                               required/>
+                               </Col><Col>
+                        <label>Hour :</label>
+                        <input type="number" 
+                             name = "hour"
+                             min="0"
+                             max="59"
+                               className="form-control" 
+                               value={this.state.hour}
+                               onChange={this.onChange}
+                               required/>
+                               </Col><Col>
+                        <label>Minute :</label>
+                        <input type="number" 
+                             name = "minute"
+                             min="0"
+                             max="59"
+                               className="form-control" 
+                               value={this.state.minute}
+                               onChange={this.onChange}
+                               required/>
+                               </Col>
+                        </Row>
+                    </div>
                                 <div className="form-group">
                                     <input type="submit" value="Done" className="btn btn-primary common"/>
                                 </div>

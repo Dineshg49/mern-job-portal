@@ -218,7 +218,7 @@ export default class Register extends Component {
                                className="form-control" 
                                value={this.state.type}
                                onChange={this.onChangeType}
-                               >
+                               required>
                                        <option value="select">Select</option>
                                        <option value="applicant">Applicant</option>
                                        <option value="recuiter">Recuiter</option>
@@ -231,7 +231,7 @@ export default class Register extends Component {
                                className="form-control" 
                                value={this.state.name}
                                onChange={this.onChangeUsername}
-                               />
+                               required/>
                     </div>
                     <div className="form-group common">
                         <label>Email: </label>
@@ -239,7 +239,7 @@ export default class Register extends Component {
                                className="form-control" 
                                value={this.state.email}
                                onChange={this.onChangeEmail}
-                               />  
+                               required/>  
                     </div>
                     <div className="form-group common">
                         <label>Password: </label>
@@ -248,7 +248,7 @@ export default class Register extends Component {
                                name = "password"
                                value={this.state.password}
                                onChange={this.onChange}
-                               />  
+                               required/>  
                     </div>
                     <div className="form-group applicant">
                         <label>Education: </label>
@@ -262,7 +262,7 @@ export default class Register extends Component {
                                name = "ed00"
                                value={this.state.ed00}
                                onChange={this.onChange}
-                               />
+                               required/>
                                </Col>
                                <Col>
                         <label>Start Year</label>
@@ -273,7 +273,7 @@ export default class Register extends Component {
                                 name = "ed01"
                                 value = {this.state.ed01}
                                 onChange = {this.onChange}
-                        />
+                                required/>
                         </Col>
                         <Col>
                         <label>End Year</label>

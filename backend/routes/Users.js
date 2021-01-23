@@ -248,7 +248,7 @@ router.get("/active-jobs", function(req, res) {
       const today = Date.now();
       var x = new Intl.DateTimeFormat('ko-KR', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit' ,hour12 : false }).format(today);
       
-      Job.find({deadline : {$gt : x } , status : "active" , curr_rejected : {$nin: req.query.id} } ,function(err, users) {
+      Job.find({deadline : {$gt : x } ,$or : [{status : "active"} , {status : "inactive" }], curr_rejected : {$nin: req.query.id} } ,function(err, users) {
           if (err) {
               console.log(err);
           } else {
@@ -261,7 +261,7 @@ router.get("/active-jobs", function(req, res) {
 
   router.get("/my-jobs", function(req, res) {
      // console.log(user_pro)
-      Job.find({_id_of_recuiter : req.query._id},function(err, users) {
+      Job.find({_id_of_recuiter : req.query._id , status : 'active' },function(err, users) {
           if (err) {
               console.log(err);
           } else {
@@ -352,7 +352,7 @@ router.get("/active-jobs", function(req, res) {
 
      Job.findOneAndUpdate({ _id : req.query._id},
     {$set : {email_of_recuiter : '' , _id_of_recuiter : '' ,curr_applicants : [],
-    curr_shortlisted : [],curr_selected : [] ,curr_rejected : [] ,status : 'inactive'}},function(err, users) {
+    curr_shortlisted : [],curr_selected : [] ,curr_rejected : [] ,status : 'deleted'}},function(err, users) {
      if (err) {
          console.log(err);
      } else {
@@ -510,8 +510,8 @@ Job.findOneAndUpdate(
 
    User.findOneAndUpdate(
        { _id : req.query._id},
-       { $set: {job_selected : '' , recuiter_selected : '' ,date_of_joining :'' , type_of_job_selected : '' },
-        $push : {jobsrejected : job_pro}},
+       { $set: {job_selected : job_pro , recuiter_selected : req.query.recuiter ,date_of_joining :req.query.date , type_of_job_selected : req.query.type },
+        $pull : {jobs_applied : job_pro , jobs_shortlisted : job_pro}},
        (err, updated_data) => {
            if(err) {
                console.log("update not done");
@@ -524,6 +524,75 @@ Job.findOneAndUpdate(
        }
    );
 });
+
+router.route('/add-to-accepted').get(function(req, res) {
+    //console.log("heee")
+    //console.log(user_pro)
+    //console.log(req.query.sop)
+    var x;
+    
+    Job.findOneAndUpdate(
+        { _id : job_pro},
+        { $push: {curr_selected : req.query._id},
+        $pull : {curr_shortlisted : req.query._id } ,
+        $set : {status : req.query.status } },
+        (err, updated_data) => {
+            if(err) {
+                console.log("update not done");
+            }
+            else {
+                
+                res.json(updated_data)
+               // console.log(updated_data)
+            }
+        }
+    );
+     
+     });
+
+router.route('/reject-others').get(function(req, res) {
+//console.log("heee")
+//console.log(user_pro)
+//console.log(req.query.sop)
+Job.findOneAndUpdate(
+    { $or : [{curr_applicants : req.query._id} , {curr_shortlisted : req.query._id }]},
+    { $push: {curr_rejected : req.query._id},
+    $pull : {curr_applicants : req.query._id , curr_shortlisted : req.query._id}},
+    (err, updated_data) => {
+        if(err) {
+            console.log("update not done");
+        }
+        else {
+            
+            res.json(updated_data)
+            // console.log(updated_data)
+        }
+    }
+);
+    
+    });
+
+router.route('/reject-all').get(function(req, res) {
+    //console.log("heee")
+    //console.log(user_pro)
+    //console.log(req.query.sop)
+    User.findOneAndUpdate(
+        { _id: req.query._id},
+        { $push: {jobsrejected : {$each : req.body.jobs }},
+        $set : {jobs_applied : [] , jobs_shortlisted : [] }},
+        (err, updated_data) => {
+            if(err) {
+                console.log("update not done");
+            }
+            else {
+                
+                res.json(updated_data)
+                // console.log(updated_data)
+            }
+        }
+    );
+        
+        });
 
 router.route('/add-to-rejected').get(function(req, res) {
 //console.log("heee")
@@ -575,11 +644,12 @@ router.route('/rate-job').get(function(req, res) {
    //console.log(user_pro)
 //    console.log("main query")
 //    console.log(req.query.recuiter)
-
+var x = parseInt(req.query.rating)
+console.log(x);
    Job.findOneAndUpdate(
        { _id : req.query.jobid},
        { $push :{rated_by : req.query.userid} ,
-        $set : {rating : rating + req.query.rating , rating_cn : rating_cn+1}},
+        $inc : {rating : x , rating_cn : 1}},
        (err, updated_data) => {
            if(err) {
                console.log("update not done");
@@ -597,12 +667,14 @@ router.route('/rate-applicant').get(function(req, res) {
     //console.log("heee")
    //console.log(user_pro)
 //    console.log("main query")
-//    console.log(req.query.recuiter)
-
+// console.log(req.query.rating)
+var x = parseInt(req.query.rating)
+//console.log(x);
+    console.log(req.query.userid);
    User.findOneAndUpdate(
        { _id : req.query.userid},
-       { $push :{rated_by : req.query.userid} ,
-        $set : {rating : rating + req.query.rating , rating_cn : rating_cn+1}},
+       { $push :{rated_by : req.query.recid} ,
+         $inc : {rating : x ,rating_cn : 1 }},
        (err, updated_data) => {
            if(err) {
                console.log("update not done");
@@ -615,27 +687,7 @@ router.route('/rate-applicant').get(function(req, res) {
        }
    );
 });
-router.route('/add-to-accepted').get(function(req, res) {
-//console.log("heee")
-//console.log(user_pro)
-//console.log(req.query.sop)
-Job.findOneAndUpdate(
-    { _id : job_pro},
-    { $push: {curr_rejected : req.query._id},
-    $pull : {curr_shortlisted : req.query._id , curr_applicants : req.query._id} },
-    (err, updated_data) => {
-        if(err) {
-            console.log("update not done");
-        }
-        else {
-            
-            res.json(updated_data)
-           // console.log(updated_data)
-        }
-    }
-);
- 
- });
+
 
 module.exports = router;
 
