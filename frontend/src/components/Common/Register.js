@@ -53,7 +53,7 @@ export default class Register extends Component {
         var st = 'ed-' + n.toString();
       //  console.log(st);
         document.getElementById(st).style.display = "block";
-        if(n === 3)
+        if(n == 3)
             document.getElementById("addmore").style.display = "none";
     }
     onChangeUsername(event) {
@@ -195,7 +195,13 @@ export default class Register extends Component {
         if(this.state.type === "applicant"){
         axios.post('http://localhost:4000/user/register', newUser)
              .then(function(res){
+                if(res.data===1)
+                {
+                    alert('Email Already Exists')
+                }
+                else{
                 window.location = "/login"
+                }
             });
         }
         else{
@@ -262,7 +268,7 @@ export default class Register extends Component {
                                name = "ed00"
                                value={this.state.ed00}
                                onChange={this.onChange}
-                               required/>
+                               />
                                </Col>
                                <Col>
                         <label>Start Year</label>
@@ -273,7 +279,7 @@ export default class Register extends Component {
                                 name = "ed01"
                                 value = {this.state.ed01}
                                 onChange = {this.onChange}
-                                required/>
+                                />
                         </Col>
                         <Col>
                         <label>End Year</label>

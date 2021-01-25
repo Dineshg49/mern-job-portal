@@ -56,7 +56,7 @@ export default class Editprofilea extends Component {
         var st = 'ed-' + n.toString();
      //   console.log(st);
         document.getElementById(st).style.display = "block";
-        if(n === 3)
+        if(n == 3)
             document.getElementById("addmore").style.display = "none";
     }
     onChangeUsername(event) {

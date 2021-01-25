@@ -24,7 +24,7 @@ class Dashboardrjobform extends Component {
             email_of_recuiter : '',
             year : 2021,
             month : 1,
-            day : 24,
+            day : 27,
             hour : 23,
             minute : 55,
 
@@ -70,9 +70,8 @@ class Dashboardrjobform extends Component {
         var sminute = this.state.minute.toString();
         if(this.state.minute < 10)
             sminute = '0' + sminute;
-
-            var dead = this.state.year.toString() + '. ' + smonth + '. ' + sday +'. ' + shour + ':' + sminute;
-            this.setState({deadline : dead })
+        this.state.deadline =  this.state.year.toString() + '. ' + smonth + '. ' + sday +'. ' + shour + ':' + sminute;
+       // this.setState({deadline : dead })
         const newJob = {
             title: this.state.title,
             name_of_recuiter: this.state.details[0].name,

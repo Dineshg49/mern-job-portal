@@ -91,7 +91,7 @@ class myapplications extends Component {
                                         break;
                                     }
                                 }
-                                if(f===0)
+                                if(f==0)
                                 {
                                     // console.log("hurray")
                                     // console.log(x)

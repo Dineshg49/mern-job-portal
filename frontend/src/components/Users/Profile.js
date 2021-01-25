@@ -47,7 +47,7 @@ class Profile extends Component {
                     this.state.details.map((user, i) => {
                         if(user.type === "applicant"){
                             var rat;
-                            if(user.rating_cn === 0)
+                            if(user.rating_cn == 0)
                              rat = "Not Rated Yet";
                              else
                              {

@@ -46,7 +46,7 @@ class Myjobs extends Component {
         
     }
     fun(job) {
-        if(this.state.details[0].jobs_applied.length === 10)
+        if(this.state.details[0].jobs_applied.length == 10)
         {
             alert("You cannot have more than 10 open job applications")
         }
@@ -246,22 +246,28 @@ class Myjobs extends Component {
                             var val;
                             var col=  "green";
                            // var stat
-                            if(f===1){
+                            if(f==1){
                                 val = "Applied"
                                 col = "blue"
                             }
-                            else if(f===2){
+                            else if(f==2){
                                 val = "Already Accepted in Some Job";
-                                col = "yellow"
+                                col = "orange"
                             }
                             else
                             {
-                                if(job.max_applications === (job.curr_applicants.length + job.curr_rejected.length) ){
+                                console.log(job.title)
+                                console.log(job.max_applications)
+                                console.log(job.curr_applicants.length)
+                                console.log(job.curr_rejected.length)
+                                console.log(job.max_positions)
+                                console.log(job.curr_selected.length)
+                                if(job.max_applications == (job.curr_applicants.length + job.curr_rejected.length) ){
                                     val = "Full"
                                     col = "red"
                                  
                                 }
-                                else if(job.max_positions === job.curr_selected.length){
+                                else if(job.max_positions == job.curr_selected.length){
                                     val = "Full"
                                     col = "red"
                                 }
@@ -271,9 +277,9 @@ class Myjobs extends Component {
                                 }
                             }
                             var rat = "NA"
-                            if(this.state.details[0].rating_cn !==0)
+                            if(job.rating_cn !== 0)
                             {
-                                rat = this.state.details[0].rating/this.state.details[0].rating_cn;
+                                rat = job.rating/job.rating_cn;
                             }
                             return (
                                 <tr>

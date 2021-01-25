@@ -266,7 +266,7 @@ class jobdetails extends Component {
                                     <td>{val}</td>
                                     <td><button onClick = {() =>{
                                         var status = "active";
-                                        if(job.max_positions === (job.curr_selected +1))
+                                        if(job.max_positions == (job.curr_selected +1))
                                         {
                                             status = "inactive";
                                         }
