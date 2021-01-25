@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Navbarr from '../templates/Navbar-r'
-import Button from '@material-ui/core/Button';
 import { Nav } from 'react-bootstrap'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css" 
 
 class Dashboardr extends Component {

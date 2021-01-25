@@ -25,20 +25,16 @@ router.get("/profile",function(req,res) {
         if (err) {
             console.log(err);
         } else {
-            // console.log(Pro)
             res.json(Pro);
         }
     });
 });
 
 router.get("/myemployees",function(req,res) {
-    // name = req.body.name
-     //console.log(name)
      User.find({recuiter_selected : user_pro}, function(err, Pro) {
          if (err) {
              console.log(err);
          } else {
-             // console.log(Pro)
              res.json(Pro);
          }
      });
@@ -46,28 +42,22 @@ router.get("/myemployees",function(req,res) {
 
 
 router.get("/profile/jobs",function(req,res) {
-    // console.log(job_pro)
+
      User.find({jobs_applied : job_pro }, function(err, Pro) {
          if (err) {
              console.log(err);
          } else {
-             // console.log(Pro)
              res.json(Pro);
-             //console.log(Pro);
          }
      });
  });
 
 router.get("/curr-job-details",function(req,res) {
-   // console.log("hrerrr")
-   // console.log(job_pro)
     Job.find({_id : job_pro }, function(err, Pro) {
         if (err) {
             console.log(err);
         } else {
-            // console.log(Pro)
             res.json(Pro);
-          //  console.log(Pro);
         }
     });
 });
@@ -123,8 +113,6 @@ router.post("/register2", (req, res) => {
 
 
 router.route('/job-created').get(function(req, res) {
-    // console.log("heee")
-   // console.log(user_pro)
     User.findOneAndUpdate(
         { _id: user_pro},
         { $push: {jobs_created: job_pro} },
@@ -135,7 +123,6 @@ router.route('/job-created').get(function(req, res) {
             else {
                 
                 res.json(updated_data)
-         //       console.log(updated_data)
             }
         }
     );
@@ -143,24 +130,20 @@ router.route('/job-created').get(function(req, res) {
   });
 
   router.route('/edit-applicant').get(function(req, res) {
-    // console.log("heee")
     User.findOneAndUpdate(
         { _id: user_pro},
         { $set: { email : req.query.email ,
                  name : req.query.name ,
                 password : req.query.password,
-              //  education : req.query.education,
                 skills : req.query.skills,
-          //      rating : req.query.rating
                 } },
         (err, updated_data) => {
             if(err) {
                 console.log("update not done");
             }
-            else {
-                
+            else {                
                 res.json(updated_data)
-          //      console.log(updated_data)
+
             }
         }
     );
@@ -168,14 +151,11 @@ router.route('/job-created').get(function(req, res) {
   });
 
   router.route('/edit-recuiter').get(function(req, res) {
-    // console.log("heee")
-
     User.findOneAndUpdate(
         { _id: user_pro},
         { $set: { email : req.query.email ,
                  name : req.query.name ,
                 password : req.query.password,
-              //  education : req.query.education,
                 bio : req.query.bio,
                 contactno : req.query.contactno
                 } },
@@ -186,7 +166,6 @@ router.route('/job-created').get(function(req, res) {
             else {
                 
                 res.json(updated_data)
-              //  console.log(updated_data)
             }
         }
     );
@@ -194,17 +173,12 @@ router.route('/job-created').get(function(req, res) {
   });
 
 router.get("/job-login" , (req,res) => {
-    //console.log(req.query.title)
     job_pro = req.query._id
-    //console.log(job_pro)
 });
 // POST request 
 // Login
 router.post("/login", (req, res) => {
-   // console.log("hererere")
-    //user_pro = req.body._id
-    //console.log(user_pro)
-    //console.log(user_pro)
+
     User.find({email : req.body.email}, function(err,user_exist){
         if(err)
         {
@@ -217,19 +191,16 @@ router.post("/login", (req, res) => {
         }
         else
         {
-          //  console.log(user_exist[0].password);
             if(user_exist[0].password === req.body.password)
             {
                 user_pro = user_exist[0]._id;
-           //     console.log(user_pro)
+
                 if(user_exist[0].type==="applicant")
                     {
-        //                console.log("customer")
                         res.send("3")
                     }
                 if(user_exist[0].type==="recuiter")
                 {
-      //              console.log("vendor")
                     res.send("4")
                 }
             }
@@ -244,7 +215,6 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/active-jobs", function(req, res) {
-  //  console.log("here")
       const today = Date.now();
       var x = new Intl.DateTimeFormat('ko-KR', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit' ,hour12 : false }).format(today);
       
@@ -260,7 +230,6 @@ router.get("/active-jobs", function(req, res) {
   
 
   router.get("/my-jobs", function(req, res) {
-     // console.log(user_pro)
       Job.find({_id_of_recuiter : req.query._id , status : 'active' },function(err, users) {
           if (err) {
               console.log(err);
@@ -271,7 +240,6 @@ router.get("/active-jobs", function(req, res) {
   });
 
   router.get("/get-info", function(req, res) {
-    // console.log(user_pro)
      User.find({_id : user_pro},function(err, users) {
          if (err) {
              console.log(err);
@@ -282,7 +250,6 @@ router.get("/active-jobs", function(req, res) {
  });
 
  router.get("/get-myjobs", function(req, res) {
-    // console.log(user_pro)
      Job.find({ $or: [ { curr_applicants: user_pro }, { curr_shortlisted : user_pro } , {curr_rejected : user_pro} , {curr_selected : user_pro}] },function(err, users) {
          if (err) {
              console.log(err);
@@ -293,7 +260,6 @@ router.get("/active-jobs", function(req, res) {
  });
 
  router.get("/edit-job", function(req, res) {
-    // console.log(user_pro)
      Job.findOneAndUpdate({ _id : job_pro},
         {$set : {max_applications : req.query.max_applications ,
                 max_positions : req.query.max_positions ,
@@ -308,7 +274,6 @@ router.get("/active-jobs", function(req, res) {
      })
  });
  router.get("/delete-job", function(req, res) {
-    // console.log(user_pro)
      User.findOneAndUpdate({ _id : user_pro},
         {$pull : {jobs_created : req.query._id}
         },function(err, users) {
@@ -321,7 +286,6 @@ router.get("/active-jobs", function(req, res) {
  });
 
  router.get("/delete-job2", function(req, res) {
-    // console.log(user_pro)
      User.updateMany({ job_selected : req.query._id},
         {$set : {job_selected :'' ,
                 type_of_job_selected : '',
@@ -364,8 +328,6 @@ router.get("/active-jobs", function(req, res) {
   
   
   router.route('/add-applicant').get(function(req, res) {
-    // console.log("heee")
-    //console.log(user_pro)
     Job.findOneAndUpdate(
         { _id: req.query._id},
         { $push: {curr_applicants : user_pro} },
@@ -374,9 +336,7 @@ router.get("/active-jobs", function(req, res) {
                 console.log("update not done");
             }
             else {
-                
                 res.json(updated_data)
-             //   console.log(updated_data)
             }
         }
     );
@@ -384,9 +344,6 @@ router.get("/active-jobs", function(req, res) {
   });
 
   router.route('/apply-job').get(function(req, res) {
-   //  console.log("heee")
-    //console.log(user_pro)
-   // console.log(req.query.sop)
    const val = {
         id_of_job  : req.query._id,
        sop : req.query.sop,
@@ -402,7 +359,6 @@ router.get("/active-jobs", function(req, res) {
             else {
                 
                 res.json(updated_data)
-           //     console.log(updated_data)
             }
         }
     );
@@ -410,10 +366,6 @@ router.get("/active-jobs", function(req, res) {
   });
   
   router.get("/all", function(req, res) {
-    // ..console.log("here")
-    //   const today = Date.now();
-    //   var x = new Intl.DateTimeFormat('ko-KR', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit' ,hour12 : false }).format(today);
-      
       Job.find(function(err, users) {
           if (err) {
               console.log(err);
@@ -423,14 +375,6 @@ router.get("/active-jobs", function(req, res) {
       })
   });
   router.post("/create", (req, res) => {
-    //  console.log("yehwala")
-     // const today = Date.now();
-    //  var x = new Intl.DateTimeFormat('ko-KR', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit' ,hour12 : false }).format(today);
-     // var y = req.body.deadline
-      //if(x > y)
-        //  console.log("x")
-      //else
-        //  console.log("y")
   
     console.log(req.body.email_of_recuiter)
       const newUser = new Job({
@@ -460,9 +404,6 @@ router.get("/active-jobs", function(req, res) {
   });
 
   router.route('/shortlist-job').get(function(req, res) {
-   // console.log("heee")
-   //console.log(user_pro)
-   //console.log(req.query.sop)
    User.findOneAndUpdate(
        { _id : req.query._id},
        { $push: {jobs_shortlisted : job_pro} },
@@ -473,16 +414,13 @@ router.get("/active-jobs", function(req, res) {
            else {
                
                res.json(updated_data)
-     //          console.log(updated_data)
            }
        }
    );
 });
 
 router.route('/add-to-shortlist').get(function(req, res) {
-//console.log("heee")
-//console.log(user_pro)
-//console.log(req.query.sop)
+
 Job.findOneAndUpdate(
     { _id : job_pro},
     { $push: {curr_shortlisted : req.query._id},
@@ -494,7 +432,6 @@ Job.findOneAndUpdate(
         else {
             
             res.json(updated_data)
-  //          console.log(updated_data)
         }
     }
 );
@@ -503,10 +440,6 @@ Job.findOneAndUpdate(
 
 
  router.route('/accept-job').get(function(req, res) {
-    //console.log("heee")
-   //console.log(user_pro)
-//    console.log("main query")
-//    console.log(req.query.recuiter)
 
    User.findOneAndUpdate(
        { _id : req.query._id},
@@ -519,16 +452,12 @@ Job.findOneAndUpdate(
            else {
                
                res.json(updated_data)
-           //    console.log(updated_data)
            }
        }
    );
 });
 
 router.route('/add-to-accepted').get(function(req, res) {
-    //console.log("heee")
-    //console.log(user_pro)
-    //console.log(req.query.sop)
     var x;
     
     Job.findOneAndUpdate(
@@ -543,7 +472,6 @@ router.route('/add-to-accepted').get(function(req, res) {
             else {
                 
                 res.json(updated_data)
-               // console.log(updated_data)
             }
         }
     );
@@ -551,9 +479,7 @@ router.route('/add-to-accepted').get(function(req, res) {
      });
 
 router.route('/reject-others').get(function(req, res) {
-//console.log("heee")
-//console.log(user_pro)
-//console.log(req.query.sop)
+
 Job.findOneAndUpdate(
     { $or : [{curr_applicants : req.query._id} , {curr_shortlisted : req.query._id }]},
     { $push: {curr_rejected : req.query._id},
@@ -565,7 +491,7 @@ Job.findOneAndUpdate(
         else {
             
             res.json(updated_data)
-            // console.log(updated_data)
+
         }
     }
 );
@@ -573,9 +499,7 @@ Job.findOneAndUpdate(
     });
 
 router.route('/reject-all').get(function(req, res) {
-    //console.log("heee")
-    //console.log(user_pro)
-    //console.log(req.query.sop)
+
     User.findOneAndUpdate(
         { _id: req.query._id},
         { $push: {jobsrejected : {$each : req.body.jobs }},
@@ -587,7 +511,7 @@ router.route('/reject-all').get(function(req, res) {
             else {
                 
                 res.json(updated_data)
-                // console.log(updated_data)
+               
             }
         }
     );
@@ -595,9 +519,7 @@ router.route('/reject-all').get(function(req, res) {
         });
 
 router.route('/add-to-rejected').get(function(req, res) {
-//console.log("heee")
-//console.log(user_pro)
-//console.log(req.query.sop)
+
 Job.findOneAndUpdate(
     { _id : job_pro},
     { $push: {curr_rejected : req.query._id},
@@ -609,7 +531,7 @@ Job.findOneAndUpdate(
         else {
             
             res.json(updated_data)
-           // console.log(updated_data)
+          
         }
     }
 );
@@ -617,10 +539,6 @@ Job.findOneAndUpdate(
  });
 
  router.route('/reject-job').get(function(req, res) {
-    //console.log("heee")
-   //console.log(user_pro)
-//    console.log("main query")
-//    console.log(req.query.recuiter)
 
    User.findOneAndUpdate(
        { _id : req.query._id},
@@ -633,17 +551,13 @@ Job.findOneAndUpdate(
            else {
                
                res.json(updated_data)
-           //    console.log(updated_data)
            }
        }
    );
 });
 
 router.route('/rate-job').get(function(req, res) {
-    //console.log("heee")
-   //console.log(user_pro)
-//    console.log("main query")
-//    console.log(req.query.recuiter)
+
 var x = parseInt(req.query.rating)
 console.log(x);
    Job.findOneAndUpdate(
@@ -657,19 +571,15 @@ console.log(x);
            else {
                
                res.json(updated_data)
-           //    console.log(updated_data)
            }
        }
    );
 });
 
 router.route('/rate-applicant').get(function(req, res) {
-    //console.log("heee")
-   //console.log(user_pro)
-//    console.log("main query")
-// console.log(req.query.rating)
+
 var x = parseInt(req.query.rating)
-//console.log(x);
+
     console.log(req.query.userid);
    User.findOneAndUpdate(
        { _id : req.query.userid},
@@ -680,9 +590,7 @@ var x = parseInt(req.query.rating)
                console.log("update not done");
            }
            else {
-               
                res.json(updated_data)
-           //    console.log(updated_data)
            }
        }
    );

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Navbarr from '../templates/Navbar-r'
 import { Button } from '@material-ui/core';
 import { Icon } from 'semantic-ui-react'
 import {Row , Col} from 'react-bootstrap'
@@ -47,7 +46,7 @@ class Myjobs extends Component {
         
     }
     fun(job) {
-        if(this.state.details[0].jobs_applied.length == 10)
+        if(this.state.details[0].jobs_applied.length === 10)
         {
             alert("You cannot have more than 10 open job applications")
         }
@@ -89,14 +88,14 @@ class Myjobs extends Component {
             var nameA , nameB;
             if(sortKey === 'rating')
             {
-                if(a.rating_cn != 0)
+                if(a.rating_cn !== 0)
                 {
                     nameA = a.rating/a.rating_cn;
                 }
                 else
                     nameA = 0
                 
-                if(b.rating_cn != 0)
+                if(b.rating_cn !== 0)
                 {
                     nameB = b.rating/b.rating_cn;
                 }
@@ -132,11 +131,11 @@ class Myjobs extends Component {
         var i
         var f=0
         for(i = 0 ;i<x.length ;i++){
-            if(x[i]==_id)
+            if(x[i]===_id)
                 f=1;
         }
         x = this.state.details[0].job_selected;
-        if(x!='')
+        if(x!=='')
             f=2;
         return f;
     }
@@ -247,22 +246,22 @@ class Myjobs extends Component {
                             var val;
                             var col=  "green";
                            // var stat
-                            if(f==1){
+                            if(f===1){
                                 val = "Applied"
                                 col = "blue"
                             }
-                            else if(f==2){
+                            else if(f===2){
                                 val = "Already Accepted in Some Job";
                                 col = "yellow"
                             }
                             else
                             {
-                                if(job.max_applications == (job.curr_applicants.length + job.curr_rejected.length) ){
+                                if(job.max_applications === (job.curr_applicants.length + job.curr_rejected.length) ){
                                     val = "Full"
                                     col = "red"
                                  
                                 }
-                                else if(job.max_positions == job.curr_selected.length){
+                                else if(job.max_positions === job.curr_selected.length){
                                     val = "Full"
                                     col = "red"
                                 }
@@ -272,7 +271,7 @@ class Myjobs extends Component {
                                 }
                             }
                             var rat = "NA"
-                            if(this.state.details[0].rating_cn !=0)
+                            if(this.state.details[0].rating_cn !==0)
                             {
                                 rat = this.state.details[0].rating/this.state.details[0].rating_cn;
                             }
@@ -287,7 +286,7 @@ class Myjobs extends Component {
                                     <td>{job.deadline}</td>
                                     <td><button onClick = { () => {
                                         console.log(val);
-                                        if(val == "Apply")
+                                        if(val === "Apply")
                                         {
                                             this.fun(job);
                                             window.location.reload(false);

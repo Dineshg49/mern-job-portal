@@ -5,7 +5,6 @@ import {Row , Col} from 'react-bootstrap'
 import Button from '@material-ui/core/Button';
 //import './Profile.css'
 import { ListGroup } from 'react-bootstrap';
-import { useRadioGroup } from '@material-ui/core';
 class editjob extends Component {
     
     constructor(props) {
@@ -57,8 +56,9 @@ class editjob extends Component {
         if(this.state.minute < 10)
             sminute = '0' + sminute;
 
-        this.state.deadline = this.state.year.toString() + '. ' + smonth + '. ' + sday +'. ' + shour + ':' + sminute;
-
+        
+        var dead = this.state.year.toString() + '. ' + smonth + '. ' + sday +'. ' + shour + ':' + sminute;
+        this.setState({deadline : dead })
 
         axios.get('http://localhost:4000/user/edit-job', {
             params : {

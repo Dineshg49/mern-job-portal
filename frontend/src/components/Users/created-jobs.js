@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Navbarr from '../templates/Navbar-r'
 import { Button } from '@material-ui/core';
 import { Icon } from 'semantic-ui-react'
 
@@ -44,7 +43,7 @@ class CreatedJobs extends Component {
         var i
         var f=0
         for(i = 0 ;i<x.length ;i++){
-            if(x[i]==title)
+            if(x[i]===title)
                 f=1;
         }
         return f;

@@ -1,13 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 import 'bootstrap/dist/css/bootstrap.css'
 import 'semantic-ui-css/semantic.min.css'
 
-import UsersList from './components/Users/UsersList'
 import Home from './components/Common/Home'
 import Register from './components/Common/Register'
-import Navbar from './components/templates/Navbar'
 import Profile from './components/Users/Profile'
 import Login from './components/Common/Login'
 import Dashboardr from './components/Users/dashboard-r'
@@ -28,7 +26,6 @@ function App() {
       <div className="container">
         <br/>
         <Route path="/" exact component={Home}/>
-        <Route path="/users" exact component={UsersList}/>
         <Route path="/register" component={Register}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/login" component = {Login}/>

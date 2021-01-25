@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Navbarr from '../templates/Navbar-r'
-import { Button, unstable_createMuiStrictModeTheme } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { Icon } from 'semantic-ui-react'
 
 class myemployees extends Component {
@@ -19,14 +18,14 @@ class myemployees extends Component {
             var nameA , nameB;
             if(sortKey === 'rating')
             {
-                if(a.rating_cn != 0)
+                if(a.rating_cn !== 0)
                 {
                     nameA = a.rating/a.rating_cn;
                 }
                 else
                     nameA = 0
                 
-                if(b.rating_cn != 0)
+                if(b.rating_cn !== 0)
                 {
                     nameB = b.rating/b.rating_cn;
                 }
@@ -79,7 +78,7 @@ class myemployees extends Component {
         var i
         var f=0
         for(i = 0 ;i<x.length ;i++){
-            if(x[i]==title)
+            if(x[i]===title)
                 f=1;
         }
         return f;
@@ -113,15 +112,15 @@ class myemployees extends Component {
                     { 
                         this.state.details.map((user, i) => {
                             var yes = false;
-                            for(var i =0;i<user.rated_by.length;i++)
+                            for(i =0;i<user.rated_by.length;i++)
                             {
-                                if(user.rated_by[i]==user.recuiter_selected)
+                                if(user.rated_by[i]===user.recuiter_selected)
                                 {
                                     yes = true
                                 }
                             }
                             var rat = "Not Rated Yet"
-                            if(user.rating_cn !=0)
+                            if(user.rating_cn !==0)
                             {
                                 rat = user.rating/user.rating_cn;
                             }

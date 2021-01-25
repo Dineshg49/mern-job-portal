@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Navbarr from '../templates/Navbar-r'
 import { Button } from '@material-ui/core';
-import { Icon } from 'semantic-ui-react';
 
 class myapplications extends Component {
     
@@ -38,7 +36,7 @@ class myapplications extends Component {
         var i
         var f=0
         for(i = 0 ;i<x.length ;i++){
-            if(x[i]==title)
+            if(x[i]===title)
                 f=1;
         }
         return f;
@@ -74,7 +72,7 @@ class myapplications extends Component {
                             var join_date = "NA";
                             var yes = true
 
-                            if(this.state.details[0].job_selected == job._id)
+                            if(this.state.details[0].job_selected === job._id)
                             {
                                 status = "Accepted"
                                 join_date = this.state.details[0].date_of_joining;
@@ -84,26 +82,26 @@ class myapplications extends Component {
                             {
                                 var f=0;
                                 var x = this.state.details[0]._id;
-                                for(var i = 0; job.curr_rejected.length ;i++)
+                                for( i = 0; job.curr_rejected.length ;i++)
                                 {
-                                    if(x==job.curr_rejected[i])
+                                    if(x===job.curr_rejected[i])
                                     {
                                         f=1;
                                         status = "Rejected"
                                         break;
                                     }
                                 }
-                                if(f==0)
+                                if(f===0)
                                 {
                                     // console.log("hurray")
                                     // console.log(x)
                                     // console.log(job.curr_shortlisted[0])
                                     // console.log("hurray")
-                                    for(var i = 0; job.curr_shortlisted.length ;i++)
+                                    for( i = 0; job.curr_shortlisted.length ;i++)
                                     {
                                         // console.log(x)
                                         // console.log(job.curr_shortlisted[i])
-                                        if(x==job.curr_shortlisted[i])
+                                        if(x===job.curr_shortlisted[i])
                                         {
                                             f=1;
                                             status = "ShortListed"
@@ -111,14 +109,14 @@ class myapplications extends Component {
                                         }
                                      }
                                 }
-                                if(f==0)
+                                if(f===0)
                                 {
                                     status = "Applied"
                                 }
                             }
-                            for(var i = 0;i<job.rated_by.length;i++)
+                            for(i = 0;i<job.rated_by.length;i++)
                             {
-                                if(job.rated_by[i]==this.state.details[0]._id)
+                                if(job.rated_by[i]===this.state.details[0]._id)
                                 {
                                     yes = true;
                                 }

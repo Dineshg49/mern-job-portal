@@ -5,7 +5,6 @@ import { Button } from '@material-ui/core';
 import {Form} from 'react-bootstrap'
 import {Row , Col} from 'react-bootstrap'
 import { Multiselect } from 'multiselect-react-dropdown';
-import SelectInput from '@material-ui/core/Select/SelectInput';
 export default class Register extends Component {
     
     constructor(props) {
@@ -47,7 +46,8 @@ export default class Register extends Component {
         this.ekaur = this.ekaur.bind(this);
     }
     fun() {
-        this.state.edcn = this.state.edcn +1;
+        var cn = this.state.edcn +1;
+        this.setState({edcn: cn});
         var n  = this.state.edcn;
        // console.log(n);
         var st = 'ed-' + n.toString();
@@ -95,8 +95,7 @@ export default class Register extends Component {
         }
         else if(curr === "recuiter")
         {
-            var x =  document.getElementsByClassName("applicant");
-            var i;
+             x =  document.getElementsByClassName("applicant");
             for (i = 0; i < x.length; i++) {
                 x[i].style.display = "none";
               }
@@ -111,8 +110,8 @@ export default class Register extends Component {
         }
         else
         {
-            var x =  document.getElementsByClassName("applicant");
-            var i;
+             x =  document.getElementsByClassName("applicant");
+            
             for (i = 0; i < x.length; i++) {
                 x[i].style.display = "none";
               }
@@ -172,7 +171,8 @@ export default class Register extends Component {
             joind : c21,
             endd : c22
         }
-        this.state.education = [ed1,ed2,ed3];
+        this.setState({education:[ed1,ed2,ed3]});
+      //  this.state.education = [ed1,ed2,ed3];
         const newUser = {
             name: this.state.name,
             email: this.state.email,

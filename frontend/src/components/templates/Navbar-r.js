@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 export default class NavBarr extends Component {
     
-    constructor(props) {
-        super(props);
-    }
+
 
     render() {
         return (

@@ -32,8 +32,7 @@ class Profile extends Component {
         }
         else
         {
-            var x =  document.getElementsByClassName("recuiter");
-            var i;
+             x =  document.getElementsByClassName("recuiter");
             for (i = 0; i < x.length; i++) {
                 x[i].style.display = "block";
               }
@@ -48,7 +47,7 @@ class Profile extends Component {
                     this.state.details.map((user, i) => {
                         if(user.type === "applicant"){
                             var rat;
-                            if(user.rating_cn ==0)
+                            if(user.rating_cn === 0)
                              rat = "Not Rated Yet";
                              else
                              {

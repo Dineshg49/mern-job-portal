@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Navbarr from '../templates/Navbar-r'
-import { Button, unstable_createMuiStrictModeTheme } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { Icon } from 'semantic-ui-react'
 
 class jobdetails extends Component {
@@ -35,6 +34,7 @@ class jobdetails extends Component {
         var x;
         this.state.curr_job.map((job,i) => {
             x =job._id
+            return null;
         })
         
 
@@ -43,14 +43,14 @@ class jobdetails extends Component {
 
             if(sortKey === 'rating')
             {
-                if(a.rating_cn != 0)
+                if(a.rating_cn !== 0)
                 {
                     nameA = a.rating/a.rating_cn;
                 }
                 else
                     nameA = 0
                 
-                if(b.rating_cn != 0)
+                if(b.rating_cn !== 0)
                 {
                     nameB = b.rating/b.rating_cn;
                 }
@@ -72,7 +72,7 @@ class jobdetails extends Component {
                         nameA = a.application[i].date_of_application
                     }
                 }
-                for(var i = 0;i< b.application.length ;i++)
+                for( i = 0;i< b.application.length ;i++)
                 {
                     
                     if(b.application[i].id_of_job === x)
@@ -101,7 +101,7 @@ class jobdetails extends Component {
         var i
         var f=0
         for(i = 0 ;i<x.length ;i++){
-            if(x[i]==title)
+            if(x[i]===title)
                 f=1;
         }
         return f;
@@ -133,7 +133,7 @@ class jobdetails extends Component {
                     { 
                         this.state.details.map((user, i) => {
                             var rat;
-                            if(user.rating_cn !=0)
+                            if(user.rating_cn !==0)
                             {
                                 rat = user.rating/user.rating_cn;
                             }
@@ -146,8 +146,9 @@ class jobdetails extends Component {
                             var doj;
                             this.state.curr_job.map((job,i) => {
                                 x =job._id
+                                return null;
                             })
-                            for(var i = 0;i< user.application.length ;i++)
+                            for(i = 0;i< user.application.length ;i++)
                             {
                                 if(user.application[i].id_of_job === x)
                                 {
@@ -190,7 +191,7 @@ class jobdetails extends Component {
                             const x = user._id;
                            var val;
                            var buttonval;
-                           for(var i = 0;i<job.curr_applicants.length ;i++)
+                           for( i = 0;i<job.curr_applicants.length ;i++)
                            {
                                if(job.curr_applicants[i]===x)
                                {
@@ -254,7 +255,7 @@ class jobdetails extends Component {
                                }
                            }
                          //  arr = this.state.curr_job[0]
-                           for(var i = 0;i<job.curr_shortlisted.length ;i++)
+                           for( i = 0;i<job.curr_shortlisted.length ;i++)
                            {
                                if(job.curr_shortlisted[i]===x)
                                {
@@ -265,7 +266,7 @@ class jobdetails extends Component {
                                     <td>{val}</td>
                                     <td><button onClick = {() =>{
                                         var status = "active";
-                                        if(job.max_positions == (job.curr_selected +1))
+                                        if(job.max_positions === (job.curr_selected +1))
                                         {
                                             status = "inactive";
                                         }
@@ -350,7 +351,7 @@ class jobdetails extends Component {
                                    )
                                }
                            }
-                            })
+                             return null;})
                         }
                                 </tr>
                             )

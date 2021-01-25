@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Button } from '@material-ui/core';
 import {Form} from 'react-bootstrap'
-import {Row , Col} from 'react-bootstrap'
-import { Multiselect } from 'multiselect-react-dropdown';
-import SelectInput from '@material-ui/core/Select/SelectInput';
+
 export default class editprofiler extends Component {
     
     constructor(props) {
@@ -55,14 +53,7 @@ export default class editprofiler extends Component {
     onSubmit(e) {
         e.preventDefault();
         
-        const newUser2 = {
-            name: this.state.name,
-            email: this.state.email,
-            password : this.state.password,
-          //  type: this.state.type ,
-            contactno : this.state.contactno ,
-            bio : this.state.bio
-        }
+
             axios.get('http://localhost:4000/user//edit-recuiter', {
                 params : {
                     name: this.state.name,

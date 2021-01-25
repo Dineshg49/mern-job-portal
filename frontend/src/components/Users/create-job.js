@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Navbarr from '../templates/Navbar-r'
 import { Button } from '@material-ui/core';
 import {Form} from 'react-bootstrap'
 import {Row , Col} from 'react-bootstrap'
@@ -72,7 +71,8 @@ class Dashboardrjobform extends Component {
         if(this.state.minute < 10)
             sminute = '0' + sminute;
 
-        this.state.deadline = this.state.year.toString() + '. ' + smonth + '. ' + sday +'. ' + shour + ':' + sminute;
+            var dead = this.state.year.toString() + '. ' + smonth + '. ' + sday +'. ' + shour + ':' + sminute;
+            this.setState({deadline : dead })
         const newJob = {
             title: this.state.title,
             name_of_recuiter: this.state.details[0].name,

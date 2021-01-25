@@ -4,7 +4,6 @@ import { Button } from '@material-ui/core';
 import {Form} from 'react-bootstrap'
 import {Row , Col} from 'react-bootstrap'
 import { Multiselect } from 'multiselect-react-dropdown';
-import SelectInput from '@material-ui/core/Select/SelectInput';
 
 export default class Editprofilea extends Component {
     
@@ -50,7 +49,8 @@ export default class Editprofilea extends Component {
              })
     }
     fun() {
-        this.state.edcn = this.state.edcn +1;
+        var cn = this.state.edcn +1;
+        this.setState({edcn: cn});
         var n  = this.state.edcn;
      //   console.log(n);
         var st = 'ed-' + n.toString();
@@ -121,18 +121,7 @@ export default class Editprofilea extends Component {
             joind : c21,
             endd : c22
         }
-        this.state.education = [ed1,ed2,ed3];
-        const newUser = {
-            name: this.state.name,
-            email: this.state.email,
-            password : this.state.password ,
-            ed1 : ed1,
-            ed2 :   ed2,
-            ed3 : ed3,
-          //  rating : this.state.rating,
-            skills : this.state.skills
-            //date: Date.now()
-        }
+        this.setState({education:[ed1,ed2,ed3]});
         
         axios.get('http://localhost:4000/user/edit-applicant', {
             params :
