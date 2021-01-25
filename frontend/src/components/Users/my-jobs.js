@@ -245,22 +245,30 @@ class Myjobs extends Component {
                         searchedtitle4.map((job, i) => {
                             var f = this.checstatus(job._id)
                             var val;
+                            var col=  "green";
                            // var stat
-                            if(f==1)
+                            if(f==1){
                                 val = "Applied"
-                            else if(f==2)
+                                col = "blue"
+                            }
+                            else if(f==2){
                                 val = "Already Accepted in Some Job";
+                                col = "yellow"
+                            }
                             else
                             {
                                 if(job.max_applications == (job.curr_applicants.length + job.curr_rejected.length) ){
                                     val = "Full"
+                                    col = "red"
                                  
                                 }
                                 else if(job.max_positions == job.curr_selected.length){
                                     val = "Full"
+                                    col = "red"
                                 }
                                 else{
                                     val = "Apply"
+                                  //  col = "red"
                                 }
                             }
                             var rat = "NA"
@@ -277,14 +285,15 @@ class Myjobs extends Component {
                                     <td>{job.salary}</td>
                                     <td>{job.duration}</td>
                                     <td>{job.deadline}</td>
-                                    <td><button className="btn btn-primary" onClick = { () => {
+                                    <td><button onClick = { () => {
                                         console.log(val);
                                         if(val == "Apply")
                                         {
                                             this.fun(job);
+                                            window.location.reload(false);
                                         }
-                                        window.location.reload(false);
-                                    }}>{val}</button></td>
+                                        
+                                    }} style= {{color : 'white' ,backgroundColor: col ,}}>{val}</button></td>
 
                                     {/* <td><input type="button" value="Dispatch" className="btn btn-primary"/></td> */}
                                 </tr>
