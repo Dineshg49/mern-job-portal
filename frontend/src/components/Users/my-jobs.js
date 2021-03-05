@@ -51,14 +51,20 @@ class Myjobs extends Component {
             alert("You cannot have more than 10 open job applications")
         }
         else{
-        var sop = prompt('Enter Your SOP')
+        var str1 = prompt('Enter Your SOP')
+        str1 = ((str1.replace(/(^\s)|(\s$)/gi,"")).replace(/[ ]{2,}/gi," ")).replace(/\n /,"\n");
+
+        if(str1.split(' ').length>=251)
+        {
+            alert("SOP cannot exceed 250 words");
+        }
         const today = Date.now();
         var x = new Intl.DateTimeFormat('ko-KR', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit' ,hour12 : false }).format(today);
-        if(sop){
+        if(str1){
         axios.get('http://localhost:4000/user/apply-job' , {
             params : {
                 _id : job._id,
-                sop : sop,
+                sop : str1,
                 date : x
             }
         }

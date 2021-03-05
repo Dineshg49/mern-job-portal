@@ -466,7 +466,7 @@ Job.findOneAndUpdate(
 
 
  router.route('/accept-job').get(function(req, res) {
-
+    console.log(req.query.date)
    User.findOneAndUpdate(
        { _id : req.query._id},
        { $set: {job_selected : job_pro , recuiter_selected : req.query.recuiter ,date_of_joining :req.query.date , type_of_job_selected : req.query.type },
@@ -528,7 +528,7 @@ router.route('/reject-all').get(function(req, res) {
 
     User.findOneAndUpdate(
         { _id: req.query._id},
-        { $push: {jobsrejected : {$each : req.body.jobs }},
+        { $push: {jobsrejected : req.body.jobs},
         $set: { jobs_applied :[] , jobs_shortlisted:[]  }},
         (err, updated_data) => {
             if(err) {

@@ -60,7 +60,7 @@ class myapplications extends Component {
                             <th>Salary</th>
                             <th>Date of Joining</th>
                             <th>Status of Application</th>
-                            <th>Rate the Recuiter</th>
+                            <th>Rate the Job</th>
 
                             {/* <th>Dispatch</th> */}
                         </tr>

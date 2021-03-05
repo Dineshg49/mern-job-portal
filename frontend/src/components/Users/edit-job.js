@@ -58,7 +58,7 @@ class editjob extends Component {
 
         
         var dead = this.state.year.toString() + '. ' + smonth + '. ' + sday +'. ' + shour + ':' + sminute;
-        this.setState({deadline : dead })
+        this.state.deadline = dead ;
 
         axios.get('http://localhost:4000/user/edit-job', {
             params : {
@@ -68,7 +68,7 @@ class editjob extends Component {
             }
         })
              .then(function(res){
-           //     window.location = "/login_page"
+                window.location.reload(false);
             });
  
     }
@@ -97,7 +97,7 @@ class editjob extends Component {
                         <label>Max Number of Applicants: </label>
                         <input type="number" 
                              name = "max_applications"
-                             min = {job.current_applicants.length}
+                             min = {job.curr_applicants.length}
                                className="form-control" 
                                value={this.state.max_applications}
                                onChange={this.onChange}
@@ -108,7 +108,7 @@ class editjob extends Component {
                     <div className="form-group">
                         <label>Max Number of Positions: </label>
                         <input type="number" 
-                             min = {job.current_accepted.length}
+                             min = {job.curr_selected.length}
                              name = "max_positions"
                                className="form-control" 
                                value={this.state.max_positions}
